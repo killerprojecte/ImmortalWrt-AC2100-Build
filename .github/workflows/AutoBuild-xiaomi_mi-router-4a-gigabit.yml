@@ -4,7 +4,7 @@
 #   Author: Hyy2001X                                      #
 ###########################################################
 
-name: Redmi AC2100
+name: Xiaomi Router 4A
 
 ### 以下内容请保持不变 ( 请修改下方的 [环境变量设置] )
 on:
@@ -35,13 +35,13 @@ on:
 ### 环境变量设置
 env:
 # 编译时调用的 [.config] 文件名称
-  CONFIG_FILE: xiaomi_redmi-router-ac2100
+  CONFIG_FILE: xiaomi_mi-router-4a-gigabit
 # 源码仓库:分支
-  DEFAULT_SOURCE: immortalwrt/immortalwrt:openwrt-21.02
+  DEFAULT_SOURCE: coolsnowwolf/lede:master
 # 上传固件到 Github Releases
   UPLOAD_RELEASES: true
 # 上传固件到 Github Artifacts
-  UPLOAD_ARTIFACTS: true
+  UPLOAD_ARTIFACTS: false
 # 上传 bin 文件夹到 Github Artifacts
   UPLOAD_BIN_ARTIFACTS: false
 # 删除无用文件以增加编译空间
@@ -209,13 +209,13 @@ jobs:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: openwrt/bin/Firmware/*
         file_glob: true
-        tag: RedMiAC2100-${{ env.Compile_Date }}
+        tag: AutoUpdate
         overwrite: true
         
     - name: Download Github API
       if: env.UPLOAD_RELEASES == 'true' && env.Compile_Result == 'true' && !cancelled()
       run: |
-        wget https://api.github.com/repos/${{github.repository}}/releases/tags/RedMiAC2100-${{ env.Compile_Date }} -O API
+        wget https://api.github.com/repos/${{github.repository}}/releases/tags/AutoUpdate -O API
         
     - name: Upload Github API to Release
       if: env.UPLOAD_RELEASES == 'true' && env.Compile_Result == 'true' && !cancelled()
